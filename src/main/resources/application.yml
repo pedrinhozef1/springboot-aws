@@ -23,8 +23,8 @@ spring:
     schemas:
       - ${DATABASE:aws_project01}
     baseline_on_migrate: true
-#  mvc:
-#    pathmatch:
-#      matching-strategy: ant_path_matcher
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
