@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS aws_project01.product(
+	id SERIAL NOT NULL,
+	name VARCHAR(80) NOT NULL,
+	model VARCHAR(50) NOT NULL,
+	code VARCHAR(20) NOT NULL,
+	price DECIMAL(10, 2) NOT NULL
+);
