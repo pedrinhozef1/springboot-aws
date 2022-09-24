@@ -1,17 +1,29 @@
 package br.com.projetospringboot.product;
 
+import br.com.projetospringboot.enums.EventType;
 import br.com.projetospringboot.exceptions.BusinessException;
 import br.com.projetospringboot.exceptions.NotFoundException;
+import br.com.projetospringboot.notification.ProductPublisher;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class ProductService {
+    private final Logger LOG = LoggerFactory.getLogger(ProductService.class);
     private ProductRepository productRepository;
+    private ProductPublisher productPublisher;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository, ProductPublisher productPublisher){
+        this.productPublisher = productPublisher;
+        this.productRepository = productRepository;
+    }
     public Product create(ProductRepresentation.CreateOrUpdate createOrUpdate){
         this.verifyByCode(createOrUpdate.getCode());
 
@@ -23,6 +35,10 @@ public class ProductService {
                 .build();
 
         this.productRepository.save(newProduct);
+
+        productPublisher.publishProductEvent(newProduct, EventType.PRODUCT_CREATED, "pedro");
+
+        LOG.info("Product created event sended");
 
         return newProduct;
     }
@@ -72,6 +88,9 @@ public class ProductService {
                 .price(createOrUpdate.getPrice())
                 .build();
 
+        productPublisher.publishProductEvent(newProduct, EventType.PRODUCT_UPDATED, "joao");
+
+        LOG.info("Product updated event sended");
 
         return this.productRepository.save(newProduct);
     }
@@ -80,5 +99,9 @@ public class ProductService {
         Product product = this.findById(id);
 
         this.productRepository.deleteById(id);
+
+        productPublisher.publishProductEvent(product, EventType.PRODUCT_DELETED, "zé");
+
+        LOG.info("Product deleted event sended");
     }
 }

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com</groupId>
 	<artifactId>projeto-springboot</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.9</version>
 	<name>Estudos</name>
 	<description>Projeto para estudos</description>
 	<properties>
@@ -70,10 +70,11 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
+
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sns</artifactId>
+			<version>1.12.305</version>
 		</dependency>
 	</dependencies>
 

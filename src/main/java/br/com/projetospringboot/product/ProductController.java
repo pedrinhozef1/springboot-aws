@@ -1,8 +1,11 @@
 package br.com.projetospringboot.product;
 
+import br.com.projetospringboot.enums.EventType;
+import br.com.projetospringboot.notification.ProductPublisher;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,7 @@ public class ProductController {
                 .status(HttpStatus.CREATED)
                 .body(ProductRepresentation.Details
                         .from(productService.create(createOrUpdate)));
+
     }
 
     @GetMapping("/{id}")

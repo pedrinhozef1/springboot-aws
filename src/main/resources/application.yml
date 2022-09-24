@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: 8080
   servlet:
     context-path: /application
 spring:
@@ -17,14 +17,21 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   # SETUP FLYWAY (MIGRATIONS)
   flyway:
-    url: jdbc:mariadb://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE:aws_project01}?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-    user: ${DATABASE_USER:root}
-    password: ${DATABASE_PASSWORD:admin12345}
+    url: jdbc:mariadb://localhost:3306/aws_project01?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+    user: root
+    password: admin12345
     schemas:
-      - ${DATABASE:aws_project01}
+      - aws_project01
     baseline_on_migrate: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+aws:
+  region: us-east-1
+  sns:
+    topic:
+      product:
+        events:
+          arn: product-events
 
