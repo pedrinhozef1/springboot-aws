@@ -14,6 +14,18 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - SERVICES=sns:4566,sqs:4567
+      - DEFAULT_REGION=us-east-1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/private${TMPDIR}:/tmp/localstack"
 volumes:
   mysql-db:
     driver: local
+

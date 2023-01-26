@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /application
 spring:
@@ -33,5 +33,5 @@ aws:
     topic:
       product:
         events:
-          arn: product-events
+          arn: arn:aws:sns:us-east-1:162362487248:product-events
 
